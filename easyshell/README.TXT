@@ -1,7 +1,7 @@
-Easy Shell 1.2.0 plugin for Eclipse
+Easy Shell 1.3.0 plugin for Eclipse
 -----------------------------------
 
-This plugin allows to open a shell window from the popup menu in 
+This plugin allows to open a shell window from the popup menu in
 the navigation tree (package explorer in Java view). The current
 directory of the opened shell is the directory which was selected
 with the popup menu.
@@ -25,4 +25,6 @@ for building the exec command:
 
 {0} = The drive letter (only Windows, not used on other platforms)
 {1} = The selected directory path
-
+{2} = The selected file or directory path
+{3} = The selected file name
+{4} = The project name of selected directory or path (if file is external it's "Easy Shell")
