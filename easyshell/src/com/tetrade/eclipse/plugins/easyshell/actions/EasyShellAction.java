@@ -23,7 +23,7 @@ public class EasyShellAction implements IObjectActionDelegate {
 
 	private boolean debug = false;
 
-	private File resource = null;
+	private File[] resource = null;
 	private String projectName = null;
 	private IStructuredSelection currentSelection;
 
@@ -80,59 +80,65 @@ public class EasyShellAction implements IObjectActionDelegate {
 			return;
 		}
 
-		String drive = null;
-		String full_path = null;
-		String parent_path = null;
-		String file_name = null;
+		for (int i=0;i<resource.length;i++) {
 
-		full_path = resource.toString();
-		if (resource.isDirectory()) {
-			parent_path = resource.toString();
-			file_name = "dir"; // dummy cmd
-		}else
-		{
-			parent_path = resource.getParent();
-			file_name = resource.getName();
-		}
+			if (resource[i] == null)
+				continue;
 
-		if (full_path != null) {
+			String drive = null;
+			String full_path = null;
+			String parent_path = null;
+			String file_name = null;
 
-			if (debug) {
-				System.out.println("full_path  : [[" + full_path + "]]");
-				System.out.println("parent_path: [[" + parent_path + "]]");
-			}
-			// Try to extract drive on Win32
-			if (full_path.indexOf(":") != -1) {
-				drive = full_path.substring(0, full_path.indexOf(":"));
+			full_path = resource[i].toString();
+			if (resource[i].isDirectory()) {
+				parent_path = resource.toString();
+				file_name = "dir"; // dummy cmd
+			}else
+			{
+				parent_path = resource[i].getParent();
+				file_name = resource[i].getName();
 			}
 
-			try {
-				String target = EasyShellPlugin.getDefault().getTarget(ActionIDNum);
-				String[] args = new String[5];
+			if (full_path != null) {
 
-				args[0] = drive;
-				args[1] = parent_path;
-				args[2] = full_path;
-				args[3] = file_name;
-				args[4] = projectName == null ? "EasyShell" : projectName;
+				if (debug) {
+					System.out.println("full_path  : [[" + full_path + "]]");
+					System.out.println("parent_path: [[" + parent_path + "]]");
+				}
+				// Try to extract drive on Win32
+				if (full_path.indexOf(":") != -1) {
+					drive = full_path.substring(0, full_path.indexOf(":"));
+				}
 
-				String cmd = MessageFormat.format(target, (Object[])args);
-				if (debug) System.out.println("cmd: [[" + cmd + "]]");
+				try {
+					String target = EasyShellPlugin.getDefault().getTarget(ActionIDNum);
+					String[] args = new String[5];
 
-				Runtime.getRuntime().exec(cmd);
-			} catch (Exception e) {
-				EasyShellPlugin.log(e);
+					args[0] = drive;
+					args[1] = parent_path;
+					args[2] = full_path;
+					args[3] = file_name;
+					args[4] = projectName == null ? "EasyShell" : projectName;
+
+					String cmd = MessageFormat.format(target, (Object[])args);
+					if (debug) System.out.println("cmd: [[" + cmd + "]]");
+
+					Runtime.getRuntime().exec(cmd);
+				} catch (Exception e) {
+					EasyShellPlugin.log(e);
+				}
+
+			} else {
+
+				MessageDialog.openInformation(
+					new Shell(),
+					"Easy Shell",
+					"Unable to open shell");
+				EasyShellPlugin.log("Unable to open shell");
+				return;
+
 			}
-
-		} else {
-
-			MessageDialog.openInformation(
-				new Shell(),
-				"Easy Shell",
-				"Unable to open shell");
-			EasyShellPlugin.log("Unable to open shell");
-			return;
-
 		}
 	}
 
@@ -145,17 +151,21 @@ public class EasyShellAction implements IObjectActionDelegate {
 
 	protected boolean isEnabled()
 	{
-	  if (currentSelection != null)
-	  {
-	    Object[] selectedObjects = currentSelection.toArray();
-	    if (selectedObjects.length >= 1)
-	    {
-	    	resource = getResource(selectedObjects[0]);
-	    	if (resource != null)
-	    		return true;
-	    }
-	  }
-	  return false;
+		boolean enabled = false;
+		if (currentSelection != null)
+		{
+			Object[] selectedObjects = currentSelection.toArray();
+			if (selectedObjects.length >= 1)
+			{
+				resource = new File[selectedObjects.length];
+				for (int i=0;i<selectedObjects.length;i++) {
+					resource[i] = getResource(selectedObjects[i]);
+					if (resource != null)
+						enabled=true;
+				}
+			}
+		}
+		return enabled;
 	}
 
 	protected File getResource(Object object) {
