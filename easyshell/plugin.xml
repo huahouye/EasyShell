@@ -21,29 +21,37 @@
             objectClass="org.eclipse.core.runtime.IAdaptable"
             id="com.tetrade.eclipse.plugins.easyshell.EasyShell">
          <action
-               label="Easy Shell Open..."
+               label="Open..."
                icon="icon/easyshell.gif"
                class="com.tetrade.eclipse.plugins.easyshell.actions.EasyShellAction"
-               menubarPath="additions"
-               enablesFor="1"
+               menubarPath="com.tetrade.eclipse.plugins.easyshell.menu/easyshell.separator1"
+               enablesFor="+"
                id="com.tetrade.eclipse.plugins.easyshell.actions.EasyShellActionOpen">
          </action>
          <action
-               label="Easy Shell Run..."
+               label="Run..."
                icon="icon/run_exc.gif"
                class="com.tetrade.eclipse.plugins.easyshell.actions.EasyShellAction"
-               menubarPath="additions"
-               enablesFor="1"
+               menubarPath="com.tetrade.eclipse.plugins.easyshell.menu/easyshell.separator1"
+               enablesFor="+"
                id="com.tetrade.eclipse.plugins.easyshell.actions.EasyShellActionRun">
          </action>
          <action
-               label="Easy Shell Explore..."
+               label="Explore..."
                icon="icon/fldr_obj.gif"
                class="com.tetrade.eclipse.plugins.easyshell.actions.EasyShellAction"
-               menubarPath="additions"
-               enablesFor="1"
+               menubarPath="com.tetrade.eclipse.plugins.easyshell.menu/easyshell.separator1"
+               enablesFor="+"
                id="com.tetrade.eclipse.plugins.easyshell.actions.EasyShellActionExplore">
          </action>
+         <menu
+               id="com.tetrade.eclipse.plugins.easyshell.menu"
+               label="Easy Shell"
+               path="additions">
+            <separator
+                  name="easyshell.separator1">
+            </separator>
+         </menu>
       </objectContribution>
    </extension>
    <extension
