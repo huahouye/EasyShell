@@ -28,34 +28,40 @@ public class EasyShellPreferencePage
     implements IWorkbenchPreferencePage {
 
 	private boolean debug = false;
-	
+
     public static final String P_TARGET = "targetPreference";
     public static final String P_TARGET_RUN = "targetRunPreference";
     public static final String P_TARGET_EXPLORE = "targetExplorePreference";
     public static final String P_LIST = "listPreference";
 
     private static String[] defaultCmdsOpen = {
-    		"cmd.exe /C start \"{4}\" /D\"{1}\" cmd.exe /K",
-    		"cmd.exe /C start /D{1} cmd.exe /K \"c:/Program Files/cygwin/bin/bash.exe --login -i\"",
-			"konsole --noclose --workdir {1}",
-			"xterm"};
+    	"cmd.exe /C start \"{4}\" /D\"{1}\" cmd.exe /K",
+    	"cmd.exe /C start \"{4}\" /D\"{1}\" cmd.exe /K \"bash.exe\"",
+    	//"cmd.exe /C start \"{4}\" /D\"{1}\" cmd.exe /K \"set HOME={1} && bash.exe --login -i\"",
+		"konsole --noclose --workdir '{1}'",
+		"konsole --noclose --workdir '{1}'",
+		"cd '{1}' && xterm"};
     private static String[] defaultCmdsRun = {
 		"cmd.exe /C start \"{4}\" /D\"{1}\" \"{3}\"",
-		"cmd.exe /C start /D{1} cmd.exe /K \"c:/Program Files/cygwin/bin/bash.exe --login -i\"",
-		"konsole --noclose --workdir {1}",
-		"xterm"};
+		"cmd.exe /C start \"{4}\" /D\"{1}\" cmd.exe /K \"bash.exe -c ./{3}\"",
+		"konsole --noclose --workdir '{1}' -e './{3}'",
+		"konsole --noclose --workdir '{1}' -e './{3}'",
+		"cd '{1}' && xterm -e './{3}'"};
     private static String[] defaultCmdsExplore = {
 		"explorer.exe /select,\"{2}\"",
-		"cmd.exe /C start /D{1} cmd.exe /K \"c:/Program Files/cygwin/bin/bash.exe --login -i\"",
-		"konsole --noclose --workdir {1}",
-		"xterm"};
+		"explorer.exe /select,\"{2}\"",
+		"konqueror file:'{1}'",
+		"nautilus '{1}'",
+		//"gnome-open '{1}'"
+    	"cd '{1}' && dtfile"};
     private static String[] cmdLabels = {
-    		"Windows DOS-Shell", "Windows Cygwin (Bash)", "KDE Konsole", "Xterm"
+    		"Windows DOS-Shell / Explorer", "Windows Cygwin (Bash) / Explorer", "KDE Konsole / Konqueror", "Gnome Konsole / Nautilus", "CDE Xterm / Dtfile"
     };
     private static int cmdWinDOS = 0;
-    private static int cmdKonsole = 1;
-    private static int cmdWinCyg = 2;
-    private static int cmdXterm = 3;
+    private static int cmdWinCyg = 1;
+    private static int cmdKonsoleKDE = 2;
+    private static int cmdKonsoleGnome = 3;
+    private static int cmdXterm = 4;
 
     private Combo targetCombo = null;
     private StringFieldEditor targetOpenEditor = null;
@@ -94,9 +100,9 @@ public class EasyShellPreferencePage
                 || osname.indexOf("linux") != -1) {
             int desktop = detectDesktop();
             if(desktop == DESKTOP_KDE) {
-            	cmdNum = cmdKonsole;
+            	cmdNum = cmdKonsoleKDE;
             } else if(desktop == DESKTOP_GNOME) {
-            	cmdNum = cmdKonsole;
+            	cmdNum = cmdKonsoleGnome;
 			} else if(desktop == DESKTOP_CDE) {
 				cmdNum = cmdXterm;
             }
