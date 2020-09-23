@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin;
 
@@ -31,19 +33,19 @@ public interface Constants {
     public static final String IMAGE_EASYSHELL   = "easyshell";
     public static final String IMAGE_ECLIPSE     = "eclipse";
 
-	// Preferences
+    // Preferences
     public static final String PREF_COMMANDS_PRESET = "COMMANDS_PRESET";
     public static final String PREF_COMMANDS_MODIFY = "COMMANDS_MODIFY";
-	public static final String PREF_COMMANDS_USER   = "COMMANDS_USER";
-	public static final String PREF_COMMANDS_OLD	= "COMMANDS";
-	public static final String PREF_GENERAL   		= "GENERAL";
-	public static final String PREF_MENU            = "MENU";
-	public static final String PREF_MIGRATED        = "MIGRATED";
+    public static final String PREF_COMMANDS_USER   = "COMMANDS_USER";
+    public static final String PREF_COMMANDS_OLD	= "COMMANDS";
+    public static final String PREF_GENERAL   		= "GENERAL";
+    public static final String PREF_MENU            = "MENU";
+    public static final String PREF_MIGRATED        = "MIGRATED";
 
-	// Actions
-	public static final String ACTION_UNKNOWN    = "de.anbos.eclipse.easyshell.plugin.commands.Unknown";
-	public static final String ACTION_EXECUTE    = "de.anbos.eclipse.easyshell.plugin.commands.Execute";
-	public static final String ACTION_CLIPBOARD  = "de.anbos.eclipse.easyshell.plugin.commands.Clipboard";
+    // Actions
+    public static final String ACTION_UNKNOWN    = "de.anbos.eclipse.easyshell.plugin.commands.Unknown";
+    public static final String ACTION_EXECUTE    = "de.anbos.eclipse.easyshell.plugin.commands.Execute";
+    public static final String ACTION_CLIPBOARD  = "de.anbos.eclipse.easyshell.plugin.commands.Clipboard";
 
 
 }

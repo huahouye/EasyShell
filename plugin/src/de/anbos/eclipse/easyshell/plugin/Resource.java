@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin;
 
@@ -38,12 +40,9 @@ public class Resource {
     // resolved
     private String projectName = Activator.getResourceString("easyshell.plugin.name");
 
-    //Activator.logDebug("full_path  : >" + fullPath + "<");
-    //Activator.logDebug("parent_path: >" + parentPath + "<");
-    //Activator.logDebug("file_name  : >" + fileName + "<");
-
     public Resource(Resource myRes) {
-        file = myRes.getFile();
+        this.file = myRes.getFile();
+        this.resource = myRes.getResource();
     }
 
     public Resource(File file, IResource resource) {

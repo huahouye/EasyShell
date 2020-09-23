@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.legacy;
 
@@ -20,7 +22,7 @@ public enum Quotes {
     quotesDouble(2, "Double"),
     quotesAuto(3, "Double (automatic)"), // check if no quotes and space in string, then add
     quotesAutoSingle(4, "Single (automatic)"), // check if no quotes and space in string, then add
-	quotesEscape(5, "Escape"); // check if no quotes and space in string, then escape
+    quotesEscape(5, "Escape"); // check if no quotes and space in string, then escape
     // attributes
     private final int id;
     private final String mode;

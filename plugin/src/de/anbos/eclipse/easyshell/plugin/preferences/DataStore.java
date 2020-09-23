@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -24,7 +26,7 @@ public class DataStore<ITEMS_TYPE extends Data> extends Store implements IDataSt
     private DataObjectComparator comparator;
 
     public DataStore(IPreferenceStore store) {
-    	super(store);
+        super(store);
         this.items = new ArrayList<ITEMS_TYPE>();
     }
 
@@ -37,11 +39,11 @@ public class DataStore<ITEMS_TYPE extends Data> extends Store implements IDataSt
         for(int i = 0 ; i < items.size() ; i++) {
             IData item = (IData)items.get(i);
             if(item.equals(data)) {
-            	try {
-            		return (IData)items.get(i - 1);
-            	} catch(Throwable t) {
-            		return null;
-            	}
+                try {
+                    return (IData)items.get(i - 1);
+                } catch(Throwable t) {
+                    return null;
+                }
             }
         }
         return null;
@@ -52,11 +54,11 @@ public class DataStore<ITEMS_TYPE extends Data> extends Store implements IDataSt
         for(int i = 0 ; i < items.size() ; i++) {
             IData item = (IData)items.get(i);
             if(item.equals(data)) {
-            	try {
-            		return (IData)items.get(i + 1);
-            	} catch(Throwable t) {
-            		return null;
-            	}
+                try {
+                    return (IData)items.get(i + 1);
+                } catch(Throwable t) {
+                    return null;
+                }
             }
         }
         return null;
@@ -64,21 +66,21 @@ public class DataStore<ITEMS_TYPE extends Data> extends Store implements IDataSt
 
     @Override
     public IData getLastElement() {
-    	int index = items.size() - 1;
-    	if(index < 0) {
-    		return null;
-    	}
-    	return (IData)items.get(index);
+        int index = items.size() - 1;
+        if(index < 0) {
+            return null;
+        }
+        return (IData)items.get(index);
     }
 
     public void add(ITEMS_TYPE data) {
-    	int position = 0;
-    	IData lastElement = getLastElement();
-    	if(lastElement != null) {
-    		position = lastElement.getPosition() + 1;
-    	}
-    	data.setPosition(position);
-    	addInternal(data);
+        int position = 0;
+        IData lastElement = getLastElement();
+        if(lastElement != null) {
+            position = lastElement.getPosition() + 1;
+        }
+        data.setPosition(position);
+        addInternal(data);
     }
 
     public void replace(ITEMS_TYPE data) {
@@ -104,7 +106,7 @@ public class DataStore<ITEMS_TYPE extends Data> extends Store implements IDataSt
 
     @Override
     public void removeAll() {
-    	items.clear();
+        items.clear();
     }
 
     public ITEMS_TYPE getByPosition(int position) {
@@ -122,10 +124,10 @@ public class DataStore<ITEMS_TYPE extends Data> extends Store implements IDataSt
 
     @Override
     public void sort() {
-    	if(comparator == null) {
-    		comparator = new DataObjectComparator();
-    	}
-    	Collections.sort(items, comparator);
+        if(comparator == null) {
+            comparator = new DataObjectComparator();
+        }
+        Collections.sort(items, comparator);
     }
 
     @Override
@@ -140,25 +142,25 @@ public class DataStore<ITEMS_TYPE extends Data> extends Store implements IDataSt
     }
 
     private class DataObjectComparator implements Comparator<Object> {
-		public int compare(Object object1, Object object2) {
-		    IData data1 = null;
-		    IData data2 = null;
-			data1 = (IData)object1;
-			data2 = (IData)object2;
-			if(data1 == null || data2 == null) {
-				return -1;
-			}
-			if(data1.getPosition() > data2.getPosition()) {
-				return 1;
-			}
-			if(data1.getPosition() == data2.getPosition()) {
-				return 0;
-			}
-			if(data1.getPosition() < data2.getPosition()) {
-				return -1;
-			}
-			return -1;
-		}
+        public int compare(Object object1, Object object2) {
+            IData data1 = null;
+            IData data2 = null;
+            data1 = (IData)object1;
+            data2 = (IData)object2;
+            if(data1 == null || data2 == null) {
+                return -1;
+            }
+            if(data1.getPosition() > data2.getPosition()) {
+                return 1;
+            }
+            if(data1.getPosition() == data2.getPosition()) {
+                return 0;
+            }
+            if(data1.getPosition() < data2.getPosition()) {
+                return -1;
+            }
+            return -1;
+        }
     }
 
 }

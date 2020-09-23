@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -15,7 +17,7 @@ import java.util.UUID;
 
 public class Data implements IData {
 
-	// internal
+    // internal
     private int position = 0;
     private String id = null;
 
@@ -46,27 +48,27 @@ public class Data implements IData {
 
     @Override
     public int getPosition() {
-		return position;
-	}
+        return position;
+    }
 
     @Override
     public String getId() {
         return id;
     }
 
-	@Override
+    @Override
     public boolean equals(Object object) {
-    	if(!(object instanceof Data)) {
-    		return false;
-    	}
-    	IData data = (IData)object;
-    	if( data.getId().equals(this.getId())
-    	    /*data.getPosition() == this.getPosition()*/
-    	  )
-    	{
-    		return true;
-    	}
-    	return false;
+        if(!(object instanceof Data)) {
+            return false;
+        }
+        IData data = (IData)object;
+        if( data.getId().equals(this.getId())
+            /*data.getPosition() == this.getPosition()*/
+          )
+        {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -80,8 +82,8 @@ public class Data implements IData {
     }
 
     @Override
-	public boolean verify() {
-    	return id != null && !id.isEmpty();
+    public boolean verify() {
+        return id != null && !id.isEmpty();
     }
 
 }

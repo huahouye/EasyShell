@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.misc;
 
@@ -142,15 +144,15 @@ public class Utils {
         command.add("inode/directory");
         // fill the map
         if (fileBrowsers == null) {
-        	fileBrowsers = new HashMap<String, Object>();
-        	fileBrowsers.put(".*", "*");
+            fileBrowsers = new HashMap<String, Object>();
+            fileBrowsers.put(".*", "*");
         }
         // execute
         return isExpectedCommandOutput(command, fileBrowsers);
     }
 
     private static Object isExpectedCommandOutput(ArrayList<String> command, Map<String, Object> expectedOutput) {
-    	Object obj = null;
+        Object obj = null;
         boolean found = false;
         String expectedLine = null;
         try {
@@ -159,14 +161,14 @@ public class Utils {
             String line = null;
             while((line = in.readLine()) != null && !found) {
                 for(String key: expectedOutput.keySet()) {
-                	if (line.matches(key)) {
-                		obj = expectedOutput.get(key);
-                		if (obj instanceof String && ((String) obj).indexOf("*") == 0) {
-                			obj = line;
-                		}
-                		expectedLine = line;
-                		break;
-                	}
+                    if (line.matches(key)) {
+                        obj = expectedOutput.get(key);
+                        if (obj instanceof String && ((String) obj).indexOf("*") == 0) {
+                            obj = line;
+                        }
+                        expectedLine = line;
+                        break;
+                    }
                 }
             }
             Activator.logDebug("isExpectedCommandOutput: answer: >" + expectedLine + "<");
@@ -175,17 +177,17 @@ public class Utils {
             // If there is any error output, print it to
             // stdout for debugging purposes
             while((line = err.readLine()) != null) {
-            	Activator.logError("isExpectedCommandOutput: stderr: >" + line + "<", null);
+                Activator.logError("isExpectedCommandOutput: stderr: >" + line + "<", null);
             }
 
             int result = proc.waitFor();
             if(result != 0) {
                 // If there is any error code, print it to
                 // stdout for debugging purposes
-            	Activator.logError("isExpectedCommandOutput: return code: " + result, null);
+                Activator.logError("isExpectedCommandOutput: return code: " + result, null);
             }
         } catch(Exception e) {
-        	Activator.logError("isExpectedCommandOutput: exception", e);
+            Activator.logError("isExpectedCommandOutput: exception", e);
         }
         return obj;
     }
@@ -216,9 +218,9 @@ public class Utils {
     }
 
     public static void showToolTip(Control control, int style, String title, String message) {
-    	if (GeneralDataStore.instance().getData().getToolTipAll() != Tooltip.tooltipYes) {
-    		return;
-    	}
+        if (GeneralDataStore.instance().getData().getToolTipAll() != Tooltip.tooltipYes) {
+            return;
+        }
         if (control == null) {
             control = Display.getDefault().getActiveShell();
         }
@@ -261,22 +263,22 @@ public class Utils {
             params.put("de.anbos.eclipse.easyshell.plugin.commands.parameter.workingdir",
                     menuData.getCommandData().isUseWorkingDirectory() ? menuData.getCommandData().getWorkingDirectory() : "");
             params.put("de.anbos.eclipse.easyshell.plugin.commands.parameter.tokenizer",
-            		menuData.getCommandData().getCommandTokenizer().toString());
-		} catch (UnknownCommandID e) {
-			e.logInternalError();
-		}
+                    menuData.getCommandData().getCommandTokenizer().toString());
+        } catch (UnknownCommandID e) {
+            e.logInternalError();
+        }
         return params;
     }
 
     public static void executeCommand(final IWorkbench workbench, final MenuData menuData, boolean asynch) {
-		//Activator.logInfo("executeCommand: " + menuData.getNameExpanded() + ", " + asynch, null);
+        //Activator.logInfo("executeCommand: " + menuData.getNameExpanded() + ", " + asynch, null);
         executeCommand(workbench, "de.anbos.eclipse.easyshell.plugin.commands.execute", getParameterMapFromMenuData(menuData), asynch);
     }
 
     public static void executeCommand(final IWorkbench workbench, final String commandName, final Map<String, Object> params, boolean asynch) {
         if (asynch) {
-        	Display display = workbench == null ? Display.getDefault() : workbench.getDisplay();
-        	display.asyncExec( new Runnable(){
+            Display display = workbench == null ? Display.getDefault() : workbench.getDisplay();
+            display.asyncExec( new Runnable(){
                 @Override
                 public void run() {
                     executeCommand(workbench, commandName, params);
@@ -289,8 +291,8 @@ public class Utils {
 
     public static void executeCommands(final IWorkbench workbench, final List<MenuData> menuData, boolean asynch) {
         if (asynch) {
-        	Display display = workbench == null ? Display.getDefault() : workbench.getDisplay();
-        	display.asyncExec( new Runnable(){
+            Display display = workbench == null ? Display.getDefault() : workbench.getDisplay();
+            display.asyncExec( new Runnable(){
                 @Override
                 public void run() {
                     for (MenuData element : menuData) {
@@ -347,12 +349,12 @@ public class Utils {
     }
 
     public static String[] splitSpaces(String str) {
-    	StringTokenizer st = new StringTokenizer(str);
-    	String[] strings = new String[st.countTokens()];
-    	for (int i=0;st.hasMoreElements();i++) {	        		
-    		strings[i] = st.nextToken();
-    	}
-    	return strings;
+        StringTokenizer st = new StringTokenizer(str);
+        String[] strings = new String[st.countTokens()];
+        for (int i=0;st.hasMoreElements();i++) {
+            strings[i] = st.nextToken();
+        }
+        return strings;
     }
 
     /*
@@ -369,20 +371,20 @@ public class Utils {
             char c = str.charAt(i);
             if (c == '\"' || c == '\'' || c == ' ' && !inQuote) {
                 if (c == '\"' || c == '\'') {
-                	if (!inQuote) {
-                		quote = c;
-                		inQuote=true;
-                	} else {
-                		if (quote == c) {
-                			inQuote=false;                			
-                		}
-                	}
+                    if (!inQuote) {
+                        quote = c;
+                        inQuote=true;
+                    } else {
+                        if (quote == c) {
+                            inQuote=false;
+                        }
+                    }
                     if (skipOuterQuotes || (inQuote && (quote != c))) {
-                    	sb.append(c);
+                        sb.append(c);
                     }
                 }
                 if (!inQuote && sb.length() > 0) {
-               		strings.add(sb.toString());
+                       strings.add(sb.toString());
                     sb.delete(0, sb.length());
                 }
             } else {
@@ -393,9 +395,9 @@ public class Utils {
     }
 
     public static void addNotNull(CommandDataList list, CommandData data) {
-    	if (data != null) {
-    		list.add(data);
-    	}
+        if (data != null) {
+            list.add(data);
+        }
     }
 
     public static CommandDataList getCommandData(CommandDataList list, OS os) {
@@ -419,11 +421,11 @@ public class Utils {
     }
 
     public static CommandDataList getCommandDataList(CommandDataList list, Category category) {
-    	CommandDataList listOut = new CommandDataList();
+        CommandDataList listOut = new CommandDataList();
         for (CommandData entry : list) {
             if (entry.getCategory() == category) {
-            	CommandData newData = new CommandData(entry, false);
-            	listOut.add(newData);
+                CommandData newData = new CommandData(entry, false);
+                listOut.add(newData);
             }
         }
         return listOut;

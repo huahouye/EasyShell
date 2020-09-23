@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -39,7 +41,7 @@ public class MenuDataStore extends DataStore<MenuData> {
             @Override
             public void propertyChange(PropertyChangeEvent event) {
                 if (event.getProperty().equals(Constants.PREF_MENU)) {
-                	loadInternal((String)event.getNewValue());
+                    loadInternal((String)event.getNewValue());
                 }
             }
         });
@@ -63,13 +65,13 @@ public class MenuDataStore extends DataStore<MenuData> {
         Iterator<MenuData> dataIterator = getDataList().iterator();
         while(dataIterator.hasNext()) {
             MenuData data = (MenuData)dataIterator.next();
-    		try {
+            try {
                 if(data.isEnabled() && (category == Category.categoryUnknown || data.getCommandData().getCategory() == category)) {
                     checkedItems.add(data);
                 }
-    		} catch (UnknownCommandID e) {
-    			e.logInternalError();
-    		}
+            } catch (UnknownCommandID e) {
+                e.logInternalError();
+            }
         }
         return checkedItems;
     }
@@ -81,7 +83,7 @@ public class MenuDataStore extends DataStore<MenuData> {
     public MenuData[] getEnabledCommandMenuDataArray() {
         MenuDataList checkedItems = getEnabledCommandMenuDataList();
         if(checkedItems.size() <= 0) {
-        	return new MenuData[0];
+            return new MenuData[0];
         }
         MenuData[] checked = new MenuData[checkedItems.size()];
         for(int i = 0 ; i < checked.length ; i++) {
@@ -116,22 +118,22 @@ public class MenuDataStore extends DataStore<MenuData> {
 
     @Override
     public void load() {
-    	loadInternal(null);
+        loadInternal(null);
     }
 
     private boolean verifyInternal() {
-    	boolean valid = true;
+        boolean valid = true;
         Iterator<MenuData> dataIterator = getDataList().iterator();
         while(valid && dataIterator.hasNext()) {
             MenuData data = (MenuData)dataIterator.next();
-   			valid = data.verify();
+               valid = data.verify();
         }
         return valid;
     }
 
     @Override
     public boolean verify() {
-    	return super.verify() && verifyInternal();
+        return super.verify() && verifyInternal();
     }
 
     public MenuDataList getRefencedBy(String id) {

@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.legacy;
 
@@ -86,28 +88,28 @@ public class PrefsV1_4 {
                         "{2}{5}"
         ),
         cmdKonsoleKDEDolphin(8, "Linux", "KDE Konsole", "Dolphin", null,
-		                "konsole --workdir {1}",
-		                "konsole --workdir {1} --noclose -e {2}",
-		                "dolphin --select {2}",
-		                "{2}{5}"
+                        "konsole --workdir {1}",
+                        "konsole --workdir {1} --noclose -e {2}",
+                        "dolphin --select {2}",
+                        "{2}{5}"
         ),
         cmdWinConsole(9, 	"Windows", "Console", "Explorer", null,
-		                "console.exe -w \"{4}\" -d {1}",
-		                "console.exe -w \"{4}\" -d {1} -r \"/k\\\"{3}\\\"\"",
-		                "explorer.exe /select, {2}",
-		                "{2}{5}"
+                        "console.exe -w \"{4}\" -d {1}",
+                        "console.exe -w \"{4}\" -d {1} -r \"/k\\\"{3}\\\"\"",
+                        "explorer.exe /select, {2}",
+                        "{2}{5}"
         ),
         cmdWinTotalCommander(10, 	"Windows", "DOS-Shell", "TotalCommander", null,
-		                "cmd.exe /C start \"{4}\" /D {1} cmd.exe /K",
-		                "cmd.exe /C start \"{4}\" /D {1} {3}",
-		                "totalcmd.exe /O /T {1}",
-		                "{2}{5}"
+                        "cmd.exe /C start \"{4}\" /D {1} cmd.exe /K",
+                        "cmd.exe /C start \"{4}\" /D {1} {3}",
+                        "totalcmd.exe /O /T {1}",
+                        "{2}{5}"
         ),
         cmdWinGitBash(11,	"Windows", "Git-Bash", "Explorer", null,
-		                "cmd.exe /C start \"{4}\" /D {1} \"C:\\Program Files (x86)\\Git\\bin\\bash.exe\" --login -i",
-		                "cmd.exe /C start \"{4}\" /D {1} \"C:\\Program Files (x86)\\Git\\bin\\bash.exe\" --login -i -c ./''{3}''",
-		                "explorer.exe /select, {2} ",
-		                "{2}{5}"
+                        "cmd.exe /C start \"{4}\" /D {1} \"C:\\Program Files (x86)\\Git\\bin\\bash.exe\" --login -i",
+                        "cmd.exe /C start \"{4}\" /D {1} \"C:\\Program Files (x86)\\Git\\bin\\bash.exe\" --login -i -c ./''{3}''",
+                        "explorer.exe /select, {2} ",
+                        "{2}{5}"
         ),
         cmdWinConEmu(12,	"Windows", "ConEmu", "Explorer", null,
                 "ConEmu.exe /Title \"{4}\" /Dir \"{1}\" /Single /cmd cmd",

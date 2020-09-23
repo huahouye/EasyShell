@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -20,7 +22,7 @@ import de.anbos.eclipse.easyshell.plugin.Constants;
 
 public class GeneralDataStore extends Store {
 
-	private GeneralData data = null;
+    private GeneralData data = null;
 
     private static GeneralDataStore instance = null;
 
@@ -38,7 +40,7 @@ public class GeneralDataStore extends Store {
             public void propertyChange(PropertyChangeEvent event) {
                 if (event.getProperty().equals(Constants.PREF_GENERAL)
                 ) {
-                	loadInternal((String)event.getNewValue());
+                    loadInternal((String)event.getNewValue());
                 }
             }
         });
@@ -52,10 +54,10 @@ public class GeneralDataStore extends Store {
     }
 
     public GeneralData getData() {
-		return data;
-	}
+        return data;
+    }
 
-	@Override
+    @Override
     public void loadDefaults() {
         getStore().setToDefault(Constants.PREF_GENERAL);
         load();
@@ -63,7 +65,7 @@ public class GeneralDataStore extends Store {
 
     private void loadInternal(String pref) {
         if (pref == null) {
-        	pref = getStore().getString(Constants.PREF_GENERAL);
+            pref = getStore().getString(Constants.PREF_GENERAL);
         }
         data = PreferenceValueConverter.asGeneralData(pref);
         super.load();
@@ -71,7 +73,7 @@ public class GeneralDataStore extends Store {
 
     @Override
     public void load() {
-    	loadInternal(null);
+        loadInternal(null);
     }
 
 }

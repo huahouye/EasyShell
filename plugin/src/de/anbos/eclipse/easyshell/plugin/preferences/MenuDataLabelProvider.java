@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -28,7 +30,7 @@ public class MenuDataLabelProvider extends LabelProvider implements ITableLabelP
             case 0:
                 return Activator.getImage(data.getImageId());
             default:
-            	return null;
+                return null;
         }
     }
 
@@ -41,7 +43,7 @@ public class MenuDataLabelProvider extends LabelProvider implements ITableLabelP
             case 0:
                 return data.getNameExpanded();
             case 1:
-            	return data.getCommand();
+                return data.getCommand();
             default:
                 return ""; //$NON-NLS-1$
         }

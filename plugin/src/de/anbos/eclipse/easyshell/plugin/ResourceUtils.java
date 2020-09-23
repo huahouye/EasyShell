@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin;
 
@@ -29,6 +31,15 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.osgi.framework.Bundle;
+
+import de.anbos.eclipse.easyshell.plugin.actions.ActionDelegate;
+import de.anbos.eclipse.easyshell.plugin.types.ResourceType;
+
+import org.eclipse.cdt.internal.core.model.ExternalTranslationUnit;
+import org.eclipse.cdt.internal.core.model.IncludeReference;
+import org.eclipse.cdt.internal.ui.cview.IncludeReferenceProxy;
+import org.eclipse.cdt.internal.ui.includebrowser.IBNode;
+import org.eclipse.cdt.core.model.IIncludeReference;
 
 
 @SuppressWarnings("restriction")
@@ -53,28 +64,28 @@ public class ResourceUtils {
         return selection;
     }
 
-	static public Resource getResource(Object myObj) {
+    static public Resource getResource(Object myObj) {
         Object object = null;
 
         // handle IEditorPart
         if (myObj instanceof IEditorPart) {
             IEditorPart editorPart = (IEditorPart)myObj;
             IEditorInput input = editorPart.getEditorInput();
-        	if (input instanceof IFileEditorInput) {
-        		object = ((IFileEditorInput)input).getFile();
-        	} else {
-	            Object adapter = input.getAdapter(IFile.class);
-	            if(adapter instanceof IFile){
-	                object = (IFile) adapter;
-	            } else {
-	                adapter = editorPart.getAdapter(IFile.class);
-	                if(adapter instanceof IFile){
-	                    object = (IFile) adapter;
-	                } else {
-	                    object = input;
-	                }
-	            }
-        	}
+            if (input instanceof IFileEditorInput) {
+                object = ((IFileEditorInput)input).getFile();
+            } else {
+                Object adapter = input.getAdapter(IFile.class);
+                if(adapter instanceof IFile){
+                    object = (IFile) adapter;
+                } else {
+                    adapter = editorPart.getAdapter(IFile.class);
+                    if(adapter instanceof IFile){
+                        object = (IFile) adapter;
+                    } else {
+                        object = input;
+                    }
+                }
+            }
         } else {
             object = myObj;
         }
@@ -122,6 +133,25 @@ public class ResourceUtils {
                     return new Resource(getJarFile(adaptable));
                 }
             }
+            // optional org.eclipse.cdt.core
+            bundle = Platform.getBundle("org.eclipse.cdt.core");
+            if (bundle != null) {
+                IPath path = null;
+                if (adaptable instanceof IncludeReferenceProxy) {
+                    IIncludeReference includeRef = ((IncludeReferenceProxy) adaptable).getReference();
+                    path = includeRef.getPath();
+                } else if (adaptable instanceof IncludeReference) {
+                    IIncludeReference includeRef = ((IncludeReference) adaptable);
+                    path = includeRef.getPath();
+                } else if (adaptable instanceof ExternalTranslationUnit) {
+                    path = ((ExternalTranslationUnit) adaptable).getLocation();
+                } else if (adaptable instanceof IBNode) {
+                    path = ((IBNode) adaptable).getRepresentedPath();
+                }
+                if (path != null) {
+                    return new Resource(path.toFile());
+                }
+            }
             // File
             File file = (File) adaptable.getAdapter(File.class);
             if (file != null) {
@@ -131,7 +161,7 @@ public class ResourceUtils {
         return null;
     }
 
-	static private File getJarFile(IAdaptable adaptable) {
+    static private File getJarFile(IAdaptable adaptable) {
         JarPackageFragmentRoot jpfr = (JarPackageFragmentRoot) adaptable;
         File file = (File)jpfr.getPath().makeAbsolute().toFile();
         if (!((File)file).exists()) {
@@ -139,6 +169,42 @@ public class ResourceUtils {
             file = new File(projectFile.getParent() + file.toString());
         }
         return file;
+    }
+
+    static public ActionDelegate getActionCommonResourceType(IWorkbenchPart part, ResourceType resType) {
+        ISelection selection = getResourceSelection(part);
+        if (selection != null) {
+            ActionDelegate action = new ActionDelegate();
+            action.selectionChanged(null, selection);
+            if (action.isEnabled(ResourceType.resourceTypeFileOrDirectory) && resType == action.getCommonResourceType()) {
+                return action;
+            }
+        }
+        return null;
+    }
+
+    static public ActionDelegate getActionExactResourceType(IWorkbenchPart part, ResourceType resType) {
+        ISelection selection = getResourceSelection(part);
+        if (selection != null) {
+            ActionDelegate action = new ActionDelegate();
+            action.selectionChanged(null, selection);
+            if (action.isEnabled(resType)) {
+                return action;
+            }
+        }
+        return null;
+    }
+
+    static public ResourceType getCommonResourceType(IWorkbenchPart part) {
+        ISelection selection = getResourceSelection(part);
+        if (selection != null) {
+            ActionDelegate action = new ActionDelegate();
+            action.selectionChanged(null, selection);
+            if (action.isEnabled(ResourceType.resourceTypeFileOrDirectory)) {
+                return action.getCommonResourceType();
+            }
+        }
+        return null;
     }
 
 }

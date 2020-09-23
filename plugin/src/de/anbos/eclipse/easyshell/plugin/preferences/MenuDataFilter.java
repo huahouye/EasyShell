@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -21,8 +23,8 @@ public class MenuDataFilter extends ViewerFilter {
     private String searchString;
 
     public void setSearchText(String s) {
-    	// remove not valid chars
-    	s = s.replaceAll("[\\*|\\.|\\(|\\)|\\?]","");
+        // remove not valid chars
+        s = s.replaceAll("[\\*|\\.|\\(|\\)|\\?]","");
         // add pre and post fix that it can be used for case-insensitive matching
         this.searchString = "(?i).*" + s + ".*";
     }
@@ -36,16 +38,16 @@ public class MenuDataFilter extends ViewerFilter {
         if (data.getNameExpanded().matches(searchString)) {
             return true;
         }
-		try {
-	        if (data.getCommandData().getName().matches(searchString)) {
-	            return true;
-	        }
-	        if (data.getCommandData().getCommand().matches(searchString)) {
-	            return true;
-	        }
-		} catch (UnknownCommandID e) {
-			e.logInternalError();
-		}
+        try {
+            if (data.getCommandData().getName().matches(searchString)) {
+                return true;
+            }
+            if (data.getCommandData().getCommand().matches(searchString)) {
+                return true;
+            }
+        } catch (UnknownCommandID e) {
+            e.logInternalError();
+        }
         return false;
     }
 

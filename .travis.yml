@@ -1,8 +1,15 @@
 language: java
+
 jdk:
   - openjdk8
-  - oraclejdk8
+  - openjdk11
 
-before_script:
+env:
+  - ECLIPSE_TARGET_PLATFORM=Eclipse-4.8
+  - ECLIPSE_TARGET_PLATFORM=Eclipse-2020-03
+  - ECLIPSE_TARGET_PLATFORM=Eclipse-2020-06
+  - ECLIPSE_TARGET_PLATFORM=Eclipse-2020-09
 
-script: mvn clean verify
+install: true
+
+script: mvn -Dtarget.platform=$ECLIPSE_TARGET_PLATFORM clean verify

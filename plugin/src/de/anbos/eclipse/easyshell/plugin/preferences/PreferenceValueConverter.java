@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -19,12 +21,12 @@ import de.anbos.eclipse.easyshell.plugin.types.Version;
 
 public class PreferenceValueConverter {
 
-	// Constant ----------------------------------------------------------------
+    // Constant ----------------------------------------------------------------
 
-	public static String VALUE_DELIMITER	= "|"; //$NON-NLS-1$
-	public static String ITEM_DELIMITER		= "#"; //$NON-NLS-1$
+    public static String VALUE_DELIMITER	= "|"; //$NON-NLS-1$
+    public static String ITEM_DELIMITER		= "#"; //$NON-NLS-1$
 
-	// Static ------------------------------------------------------------------
+    // Static ------------------------------------------------------------------
 
     public static String asCommandDataBasicString(List<CommandDataBasic> items) {
         StringBuffer buffer = new StringBuffer();
@@ -54,24 +56,24 @@ public class PreferenceValueConverter {
     }
 
     public static final String asCommandDataBasicString(CommandDataBasic data) {
-   		return data.serialize(VALUE_DELIMITER);
+           return data.serialize(VALUE_DELIMITER);
     }
 
     public static final String asCommandDataString(CommandData data, boolean modifyDataOnly) {
-    	if (modifyDataOnly) {
-    		return asCommandDataBasicString(data.getModifyData());
-    	} else {
-    		return data.serialize(VALUE_DELIMITER);
-    	}
+        if (modifyDataOnly) {
+            return asCommandDataBasicString(data.getModifyData());
+        } else {
+            return data.serialize(VALUE_DELIMITER);
+        }
     }
 
     public static final String asMenuDataString(MenuData data) {
         return data.serialize(VALUE_DELIMITER);
     }
 
-	public static String asGeneralDataString(GeneralData data) {
-		return data.serialize(VALUE_DELIMITER);
-	}
+    public static String asGeneralDataString(GeneralData data) {
+        return data.serialize(VALUE_DELIMITER);
+    }
 
     public static CommandData[] asCommandDataArray(String value) {
         StringTokenizer tokenizer = new StringTokenizer(value,ITEM_DELIMITER);
@@ -118,11 +120,11 @@ public class PreferenceValueConverter {
         return data;
     }
 
-	public static GeneralData asGeneralData(String value) {
-		GeneralData data = new GeneralData();
+    public static GeneralData asGeneralData(String value) {
+        GeneralData data = new GeneralData();
         data.deserialize(value, null, VALUE_DELIMITER);
         return data;
-	}
+    }
 
     public static CommandData migrateCommandData(Version version, String value) {
         CommandData data = new CommandData();
@@ -138,7 +140,7 @@ public class PreferenceValueConverter {
     }
 
     public static CommandDataBasic migrateCommandDataBasic(Version version, String value) {
-    	CommandDataBasic data = new CommandDataBasic();
+        CommandDataBasic data = new CommandDataBasic();
         data.deserialize(version, value, null, VALUE_DELIMITER);
         return data;
     }

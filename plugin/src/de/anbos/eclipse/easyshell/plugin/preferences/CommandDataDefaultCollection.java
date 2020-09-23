@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -27,7 +29,7 @@ public class CommandDataDefaultCollection {
         CommandDataList list = getCommandsNativeDefault();
         MenuDataList ret = new MenuDataList();
         for (int i=0;i<list.size();i++) {
-            CommandData cmdData = list.get(i);            
+            CommandData cmdData = list.get(i);
             MenuData newData = new MenuData(cmdData.getId(), cmdData.getId()); // use the same id like the default command to have same defaults
             newData.setNameTypeFromCategory(cmdData.getCategory());
             if (sorted) {
@@ -39,10 +41,10 @@ public class CommandDataDefaultCollection {
     }
 
     CommandDataDefaultCollection() {
-    	CommandDataDefaultCollectionWindows.addCommandsAll(list);
-    	CommandDataDefaultCollectionLinux.addCommandsAll(list);
-    	CommandDataDefaultCollectionMacOSX.addCommandsAll(list);
-    	CommandDataDefaultCollectionAllOS.addCommandsAll(list);
+        CommandDataDefaultCollectionWindows.addCommandsAll(list);
+        CommandDataDefaultCollectionLinux.addCommandsAll(list);
+        CommandDataDefaultCollectionMacOSX.addCommandsAll(list);
+        CommandDataDefaultCollectionAllOS.addCommandsAll(list);
     }
 
     public CommandDataList getCommands() {
@@ -64,13 +66,13 @@ public class CommandDataDefaultCollection {
             case osUnknown:
                 break;
             case osWindows:
-            	CommandDataDefaultCollectionWindows.addCommandsDefault(listDefault);
+                CommandDataDefaultCollectionWindows.addCommandsDefault(listDefault);
                 break;
             case osLinux:
-            	CommandDataDefaultCollectionLinux.addCommandsDefault(listDefault);
+                CommandDataDefaultCollectionLinux.addCommandsDefault(listDefault);
                 break;
             case osMacOSX:
-            	CommandDataDefaultCollectionMacOSX.addCommandsDefault(listDefault);
+                CommandDataDefaultCollectionMacOSX.addCommandsDefault(listDefault);
                 break;
             case osUnix:
                 // no op

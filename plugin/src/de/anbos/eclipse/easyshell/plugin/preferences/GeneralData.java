@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -19,38 +21,38 @@ import de.anbos.eclipse.easyshell.plugin.types.Version;
 
 public class GeneralData {
 
-	private Debug debug = Debug.debugNo;
-	private Tooltip toolTipAll = Tooltip.tooltipYes;
-	private Tooltip toolTipClipboard = Tooltip.tooltipYes;
-	private Tooltip toolTipError = Tooltip.tooltipYes;
-	
+    private Debug debug = Debug.debugNo;
+    private Tooltip toolTipAll = Tooltip.tooltipYes;
+    private Tooltip toolTipClipboard = Tooltip.tooltipYes;
+    private Tooltip toolTipError = Tooltip.tooltipYes;
+
     public GeneralData(Debug debug, Tooltip toolTipAll, Tooltip toolTipClipboard, Tooltip toolTipError) {
-    	setDebug(debug);
-    	setToolTipAll(toolTipAll);
-    	setToolTipClipboard(toolTipClipboard);
-    	setToolTipError(toolTipError);
+        setDebug(debug);
+        setToolTipAll(toolTipAll);
+        setToolTipClipboard(toolTipClipboard);
+        setToolTipError(toolTipError);
     }
 
-	public GeneralData() {
+    public GeneralData() {
     }
 
-	public boolean equals(Object object) {
-    	if(!(object instanceof GeneralData)) {
-    		return false;
-    	}
-    	GeneralData data = (GeneralData)object;
-    	if(data.getDebug() == this.getDebug() &&
-    	   data.getToolTipAll() == this.getToolTipAll() &&
-    	   data.getToolTipClipboard() == this.getToolTipClipboard() &&
-    	   data.getToolTipError() == this.getToolTipError()
-    	  )
-    	{
-    		return true;
-    	}
-    	return false;
+    public boolean equals(Object object) {
+        if(!(object instanceof GeneralData)) {
+            return false;
+        }
+        GeneralData data = (GeneralData)object;
+        if(data.getDebug() == this.getDebug() &&
+           data.getToolTipAll() == this.getToolTipAll() &&
+           data.getToolTipClipboard() == this.getToolTipClipboard() &&
+           data.getToolTipError() == this.getToolTipError()
+          )
+        {
+            return true;
+        }
+        return false;
     }
 
-	public boolean deserialize(Version version, String value, StringTokenizer tokenizer, String delimiter) {
+    public boolean deserialize(Version version, String value, StringTokenizer tokenizer, String delimiter) {
         if((value == null || value.length() <= 0) && tokenizer == null) {
             return false;
         }
@@ -61,19 +63,19 @@ public class GeneralData {
         setDebug(Debug.getFromEnum(tokenizer.nextToken()));
         // tooltip
         if (version.getId() >= Version.v2_1_002.getId()) {
-        	setToolTipAll(Tooltip.getFromEnum(tokenizer.nextToken()));
-        	setToolTipClipboard(Tooltip.getFromEnum(tokenizer.nextToken()));
-        	setToolTipError(Tooltip.getFromEnum(tokenizer.nextToken()));
+            setToolTipAll(Tooltip.getFromEnum(tokenizer.nextToken()));
+            setToolTipClipboard(Tooltip.getFromEnum(tokenizer.nextToken()));
+            setToolTipError(Tooltip.getFromEnum(tokenizer.nextToken()));
         }
-		return true;
-	}
+        return true;
+    }
 
     public boolean deserialize(String value, StringTokenizer tokenizer, String delimiter) {
         return deserialize(Version.actual, value, tokenizer, delimiter);
     }
 
     public String serialize(Version version, String delimiter) {
-    	String ret = "";
+        String ret = "";
         ret += getDebug().toString() + delimiter;
         ret += getToolTipAll().toString() + delimiter;
         ret += getToolTipClipboard().toString() + delimiter;
@@ -85,36 +87,36 @@ public class GeneralData {
         return serialize(Version.actual, delimiter);
     }
 
-	public Debug getDebug() {
-		return debug;
-	}
+    public Debug getDebug() {
+        return debug;
+    }
 
-	public void setDebug(Debug debug) {
-		this.debug = debug;
-	}
+    public void setDebug(Debug debug) {
+        this.debug = debug;
+    }
 
-	public Tooltip getToolTipAll() {
-		return toolTipAll;
-	}
+    public Tooltip getToolTipAll() {
+        return toolTipAll;
+    }
 
-	public void setToolTipAll(Tooltip tooltip) {
-		this.toolTipAll = tooltip;
-	}
+    public void setToolTipAll(Tooltip tooltip) {
+        this.toolTipAll = tooltip;
+    }
 
-	public Tooltip getToolTipClipboard() {
-		return toolTipClipboard;
-	}
+    public Tooltip getToolTipClipboard() {
+        return toolTipClipboard;
+    }
 
-	public void setToolTipClipboard(Tooltip tooltip) {
-		this.toolTipClipboard = tooltip;
-	}
+    public void setToolTipClipboard(Tooltip tooltip) {
+        this.toolTipClipboard = tooltip;
+    }
 
-	public Tooltip getToolTipError() {
-		return toolTipError;
-	}
+    public Tooltip getToolTipError() {
+        return toolTipError;
+    }
 
-	public void setToolTipError(Tooltip tooltip) {
-		this.toolTipError = tooltip;
-	}
+    public void setToolTipError(Tooltip tooltip) {
+        this.toolTipError = tooltip;
+    }
 
 }

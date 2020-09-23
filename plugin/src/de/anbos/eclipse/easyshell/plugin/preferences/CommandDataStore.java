@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.preferences;
 
@@ -38,8 +40,8 @@ public class CommandDataStore extends DataStore<CommandData> {
             @Override
             public void propertyChange(PropertyChangeEvent event) {
                 if (event.getProperty().equals(Constants.PREF_COMMANDS_USER) 	||
-                	event.getProperty().equals(Constants.PREF_COMMANDS_PRESET)	||
-                	event.getProperty().equals(Constants.PREF_COMMANDS_MODIFY)
+                    event.getProperty().equals(Constants.PREF_COMMANDS_PRESET)	||
+                    event.getProperty().equals(Constants.PREF_COMMANDS_MODIFY)
                 ) {
                     load();
                 }
@@ -61,9 +63,9 @@ public class CommandDataStore extends DataStore<CommandData> {
     private CommandDataList getPresetCommands(boolean modifyOnly) {
         CommandDataList presetItems = new CommandDataList();
         for (CommandData data : getDataList()) {
-        	if ( ( modifyOnly && (data.getPresetType() == PresetType.presetPluginModify)) ||
-        	     (!modifyOnly && (data.getPresetType() == PresetType.presetPlugin || data.getPresetType() == PresetType.presetPluginModify))
-        	   ) {
+            if ( ( modifyOnly && (data.getPresetType() == PresetType.presetPluginModify)) ||
+                 (!modifyOnly && (data.getPresetType() == PresetType.presetPlugin || data.getPresetType() == PresetType.presetPluginModify))
+               ) {
                 presetItems.add(data);
             }
         }
@@ -118,15 +120,15 @@ public class CommandDataStore extends DataStore<CommandData> {
     private void addModifyToPreset(CommandDataBasic[] arrayModify, CommandData[] arrayPreset) {
         for(int i = 0 ; i < arrayModify.length ; i++) {
             for(int j = 0 ; j < arrayPreset.length ; j++) {
-            	if (arrayModify[i].getId().equals(arrayPreset[j].getId())) {
-            		arrayPreset[j].addOrRemoveModifyData(arrayModify[i]);
-            		break;
-            	}
+                if (arrayModify[i].getId().equals(arrayPreset[j].getId())) {
+                    arrayPreset[j].addOrRemoveModifyData(arrayModify[i]);
+                    break;
+                }
             }
         }
-	}
+    }
 
-	public CommandData getCommandDataByName(String name) {
+    public CommandData getCommandDataByName(String name) {
         for (CommandData data : getDataList()) {
             if (data.getName().equals(name)) {
                 return data;
@@ -136,18 +138,18 @@ public class CommandDataStore extends DataStore<CommandData> {
     }
 
     private boolean verifyInternal() {
-    	boolean valid = true;
+        boolean valid = true;
         Iterator<CommandData> dataIterator = getDataList().iterator();
         while(valid && dataIterator.hasNext()) {
-        	CommandData data = (CommandData)dataIterator.next();
-   			valid = data.verify();
+            CommandData data = (CommandData)dataIterator.next();
+               valid = data.verify();
         }
         return valid;
     }
 
     @Override
     public boolean verify() {
-    	return super.verify() && verifyInternal();
+        return super.verify() && verifyInternal();
     }
 
 }

@@ -1,13 +1,15 @@
-/*******************************************************************************
- * Copyright (c) 2014 - 2017 Andre Bossert.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * Copyright (c) 2014-2020 Andre Bossert <anb0s@anbos.de>.
  *
- * Contributors:
- *    Andre Bossert - initial API and implementation and/or initial documentation
- *******************************************************************************/
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 
 package de.anbos.eclipse.easyshell.plugin.actions;
 
@@ -98,13 +100,13 @@ public class ActionDelegate implements IObjectActionDelegate {
         }
         // get the manager for variables expansion
         IStringVariableManager variableManager = VariablesPlugin.getDefault().getStringVariableManager();
-        // iterate over the resources        
+        // iterate over the resources
         for (Resource resource : resources) {
             // TODO: get from preferences store
             //Quotes quotes = Activator.getQuotes(InstanceIDNum);
             Quotes quotes = Quotes.quotesNo;
             if (resource.resolve()) {
-            	Activator.logDebug("res:>" + resource.getResourceLocation() + "<");
+                Activator.logDebug("res:>" + resource.getResourceLocation() + "<");
                 try {
                     // set arguments for resolving
                     DynamicVariableResolver.setResource(resource);
@@ -114,8 +116,8 @@ public class ActionDelegate implements IObjectActionDelegate {
                     Activator.logDebug("cmd:>" + commandValue + "<");
                     // handling copy to clipboard
                     if (commandType == CommandType.commandTypeClipboard) {
-                    	String cmd = variableManager.performStringSubstitution(commandValue, false);
-                    	Activator.logDebug("clp:>" + cmd + "<");
+                        String cmd = variableManager.performStringSubstitution(commandValue, false);
+                        Activator.logDebug("clp:>" + cmd + "<");
                         cmdAll += cmd;
                     }
                     // handling command line
@@ -135,35 +137,35 @@ public class ActionDelegate implements IObjectActionDelegate {
         if ((commandType == CommandType.commandTypeClipboard) && (cmdAll != null) && (cmdAll.length() != 0)) {
             Utils.copyToClipboard(cmdAll);
             if (GeneralDataStore.instance().getData().getToolTipClipboard() == Tooltip.tooltipYes) {
-            	Activator.tooltipInfo(Activator.getResourceString("easyshell.message.copytoclipboard"), cmdAll);
+                Activator.tooltipInfo(Activator.getResourceString("easyshell.message.copytoclipboard"), cmdAll);
             }
         }
     }
 
     private String[] getCommandResolved(IStringVariableManager variableManager) throws CoreException {
-    	String[] commandArray = null;
-    	switch(commandTokenizer) {
-	    	case commandTokenizerSpaces:
-	    		commandArray = Utils.splitSpaces(commandValue);
-	    	break;
-	    	case commandTokenizerSpacesAndQuotes:
-	    		commandArray = Utils.splitSpacesAndQuotes(commandValue, false);
-	    	break;
-	    	case commandTokenizerSpacesAndQuotesSkip:
-	    		commandArray = Utils.splitSpacesAndQuotes(commandValue, true);
-	    	break;
-	    	case commandTokenizerDisabled:
-	    		commandArray = new String[1];
-	    		commandArray[0] = commandValue;
-	        break;
-	    	default:
-	    		throw new IllegalArgumentException();
-    	}
+        String[] commandArray = null;
+        switch(commandTokenizer) {
+            case commandTokenizerSpaces:
+                commandArray = Utils.splitSpaces(commandValue);
+            break;
+            case commandTokenizerSpacesAndQuotes:
+                commandArray = Utils.splitSpacesAndQuotes(commandValue, false);
+            break;
+            case commandTokenizerSpacesAndQuotesSkip:
+                commandArray = Utils.splitSpacesAndQuotes(commandValue, true);
+            break;
+            case commandTokenizerDisabled:
+                commandArray = new String[1];
+                commandArray[0] = commandValue;
+            break;
+            default:
+                throw new IllegalArgumentException();
+        }
         // resolve the variables
         for (int i=0;i<commandArray.length;i++) {
-        	commandArray[i] = variableManager.performStringSubstitution(commandArray[i], false);
+            commandArray[i] = variableManager.performStringSubstitution(commandArray[i], false);
             Activator.logDebug("exc" + i + ":>" + commandArray[i]+ "<");
-        }    	
+        }
         return commandArray;
     }
 
@@ -178,10 +180,10 @@ public class ActionDelegate implements IObjectActionDelegate {
     }
 
     private void handleExec(IStringVariableManager variableManager) throws CoreException, IOException {
-    	Activator.logDebug("exc:>---");
-    	// get working directory
-    	File workingDirectory = getWorkingDirectoryResolved(variableManager);
-        // get command    	
+        Activator.logDebug("exc:>---");
+        // get working directory
+        File workingDirectory = getWorkingDirectoryResolved(variableManager);
+        // get command
         String[] command = getCommandResolved(variableManager);
         // create process builder with command and ...
         ProcessBuilder pb = new ProcessBuilder(command);
